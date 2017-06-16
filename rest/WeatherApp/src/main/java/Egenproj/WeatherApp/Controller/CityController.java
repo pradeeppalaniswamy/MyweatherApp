@@ -2,6 +2,7 @@ package Egenproj.WeatherApp.Controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import Egenproj.WeatherApp.Entity.City;
 import Egenproj.WeatherApp.Facade.CityWeatherFacade;
 import Egenproj.WeatherApp.Service.CityService;
 @RestController
+@RequestMapping(value="/city")
 public class CityController {
 	private CityWeatherFacade cityweatherfacade;
 	private CityService cityservice;
@@ -28,10 +30,17 @@ public class CityController {
 		return cityweatherfacade.Getval();
 		
 	}
-	@RequestMapping(method = RequestMethod.GET,value="/city")
+	@RequestMapping(method = RequestMethod.GET)
 	public List<City> findallCity()
 	{
 		return cityweatherfacade.findallCity();
+		
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public City savecity(@RequestBody City city)
+	{
+		return cityservice.savecity(city);
 		
 	}
 

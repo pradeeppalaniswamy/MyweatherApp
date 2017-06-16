@@ -3,7 +3,7 @@ package Egenproj.WeatherApp.Service;
 import Egenproj.WeatherApp.Entity.Weather;
 
 public interface WeatherService {
-	public Weather getCitysWeather();
+	public Weather getCitysWeather(String Cityname);
 
 	public void getCitysWeatherParameter();
 

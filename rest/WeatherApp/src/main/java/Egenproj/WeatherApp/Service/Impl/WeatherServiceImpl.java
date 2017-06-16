@@ -16,9 +16,9 @@ public class WeatherServiceImpl implements  WeatherService{
 	}
 
 	@Override
-	public Weather getCitysWeather() {
+	public Weather getCitysWeather(String Cityname) {
 		// TODO Auto-generated method stub
-		return null;
+		return weatherrepository.getCitysWeather(Cityname);
 	}
 
 	@Override

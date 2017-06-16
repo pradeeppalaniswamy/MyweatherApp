@@ -8,4 +8,5 @@ import Egenproj.WeatherApp.Entity.City;
 
 public interface CityService {
 	public List<City> findallCity();
+	public City savecity(City city);
 }

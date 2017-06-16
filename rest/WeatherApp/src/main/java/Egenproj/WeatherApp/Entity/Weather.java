@@ -1,23 +1,30 @@
 package Egenproj.WeatherApp.Entity;
 
+import java.util.UUID;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class Weather {
+	@Id
 	private String id;
 	private String humidity;
 	private String preassure;
 	private String temperature;
 	private String Wind;
-	private City city;
+	//private City city;
 	private String speed;
 	private String degree;
 	private String timeoftemp;
 	public String getId() {
 		return id;
 	}
-	public void setId(String id) {
-		this.id = id;
+
+	public Weather() {
+		this.id=UUID.randomUUID().toString();
 	}
+
 	public String getHumidity() {
 		return humidity;
 	}
@@ -41,13 +48,13 @@ public class Weather {
 	}
 	public void setWind(String wind) {
 		Wind = wind;
-	}
+	}/*
 	public City getCity() {
 		return city;
 	}
 	public void setCity(City city) {
 		this.city = city;
-	}
+	}*/
 	public String getSpeed() {
 		return speed;
 	}

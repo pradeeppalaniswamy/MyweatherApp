@@ -1,5 +1,6 @@
 package Egenproj.WeatherApp.Controller;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,12 +24,13 @@ public class WeatherController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,value="/weather")
-	public Egenproj.WeatherApp.Entity.Weather getCitysWeather()
+	public Weather getCitysWeather(@PathVariable("city") String Cityname)
 	{
-		return cityweatherfacade.getCitysWeather();
+		return weatherservice.getCitysWeather(Cityname);
 		
-	}/*
-	@RequestMapping(method = RequestMethod.GET, value={})
+	}
+	/*
+RequestMapping(method = RequestMethod.GET, value={})
 	public void getCitysWeatherParameter()
 	{
 		

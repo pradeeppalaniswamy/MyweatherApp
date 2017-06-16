@@ -8,7 +8,7 @@ import Egenproj.WeatherApp.Repository.WeatherRepository;
 public class WeatherRepoImpl implements WeatherRepository {
 
 	@Override
-	public Weather getCitysWeather() {
+	public Weather getCitysWeather(String Cityname) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,7 +1,12 @@
 package Egenproj.WeatherApp.Repository.Impl;
 
 import java.util.ArrayList;
+
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
@@ -9,16 +14,26 @@ import Egenproj.WeatherApp.Entity.City;
 import Egenproj.WeatherApp.Repository.CityRepository;
 @Repository
 public class CityRepoImpl implements CityRepository{
-
+@PersistenceContext
+private EntityManager em;
 	@Override
 	public List<City> findallCity() {
 		// TODO Auto-generated method stub
-		List<City> citylist =new ArrayList<City>();
+		/*List<City> citylist =new ArrayList<City>();
 		City c1 =new City ();
 		c1.setName("kingsville");
 		citylist.add(c1);
+		*/
 		
-		return citylist;
+		TypedQuery<City> city=em.createNamedQuery("City.finaAll",City.class);
+		return city.getResultList();
+	}
+	
+	public City savecity(City city)
+	{
+		 em.persist(city);
+		 return city;
+		
 	}
 
 }

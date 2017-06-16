@@ -1,6 +1,8 @@
 package Egenproj.WeatherApp.Service.Impl;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+
+
 
 import org.springframework.stereotype.Service;
 
@@ -15,10 +17,16 @@ public CityServiceImpl(CityRepository cityrepository) {
 
 	this.cityrepository = cityrepository;
 }
-
+@Transactional
 @Override
 public List<City> findallCity() {
 	// TODO Auto-generated method stub
 	return cityrepository.findallCity();
+}
+@Transactional
+@Override
+public City savecity(City city) {
+	// TODO Auto-generated method stub
+	return cityrepository.savecity(city);
 }
 }
