@@ -1,5 +1,7 @@
 package Egenproj.WeatherApp.Service.Impl;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import Egenproj.WeatherApp.Entity.Weather;
@@ -43,6 +45,12 @@ public class WeatherServiceImpl implements  WeatherService{
 	public Weather addWeatherreading() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+@Transactional
+	@Override
+	public Weather saveWeather(Weather weather) {
+		// TODO Auto-generated method stub
+		return weatherrepository.saveWeather(weather);
 	}
 	
 }

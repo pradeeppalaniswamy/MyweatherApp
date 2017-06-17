@@ -36,4 +36,12 @@ private EntityManager em;
 		
 	}
 
+	@Override
+	public void update(City city) {
+		// TODO Auto-generated method stub
+		em.merge(city);
+	}
+
+
+	
 }

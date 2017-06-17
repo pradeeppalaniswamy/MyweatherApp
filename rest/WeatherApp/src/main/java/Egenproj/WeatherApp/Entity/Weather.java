@@ -4,18 +4,26 @@ import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Weather {
+	@Override
+	public String toString() {
+		return "Weather [id=" + id + ", humidity=" + humidity + ", preassure=" + preassure + ", temperature="
+				+ temperature + ", Wind=" + Wind + ", city=" + city + ", speed=" + speed + ", description="
+				+ description + ", timeoftemp=" + timeoftemp + "]";
+	}
 	@Id
 	private String id;
 	private String humidity;
 	private String preassure;
 	private String temperature;
 	private String Wind;
-	//private City city;
+	
+	private String city;
 	private String speed;
-	private String degree;
+	private String description;
 	private String timeoftemp;
 	public String getId() {
 		return id;
@@ -23,6 +31,19 @@ public class Weather {
 
 	public Weather() {
 		this.id=UUID.randomUUID().toString();
+	}
+
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getHumidity() {
@@ -61,12 +82,7 @@ public class Weather {
 	public void setSpeed(String speed) {
 		this.speed = speed;
 	}
-	public String getDegree() {
-		return degree;
-	}
-	public void setDegree(String degree) {
-		this.degree = degree;
-	}
+
 	public String getTimeoftemp() {
 		return timeoftemp;
 	}

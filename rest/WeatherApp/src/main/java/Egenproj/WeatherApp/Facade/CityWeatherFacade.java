@@ -15,6 +15,7 @@ public Weather getCitysWeather();
 
 public void getCitysWeatherParameter();
 
+public Weather addWeatherReading(Weather weather);
 
 
 public List<City> findallCity();
@@ -25,5 +26,5 @@ public Weather getHourlyWeather();
 public Weather getdailywather();
 
 
-public Weather addWeatherreading ();
+//public Weather addWeatherreading ();
 }

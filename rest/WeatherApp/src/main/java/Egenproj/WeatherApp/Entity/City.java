@@ -1,8 +1,10 @@
 package Egenproj.WeatherApp.Entity;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -17,6 +19,16 @@ public class City {
 	@Id
 	private String id;
 private String name;
+@OneToMany(fetch=FetchType.EAGER)
+private List<Weather> weatherreadings;
+public List<Weather> getWeatherreadings() {
+	return weatherreadings;
+}
+
+public void setWeatherreadings(List<Weather> weatherreadings) {
+	this.weatherreadings = weatherreadings;
+}
+
 /*@OneToMany
 private Weather weather;
 public Weather getWeather() {
@@ -39,5 +51,10 @@ public String getName() {
 
 public void setName(String name) {
 	this.name = name;
+}
+
+@Override
+public String toString() {
+	return "City [id=" + id + ", name=" + name + "]";
 }
 }

@@ -36,12 +36,12 @@ public class CityController {
 		return cityweatherfacade.findallCity();
 		
 	}
-	
+	/*
 	@RequestMapping(method = RequestMethod.POST)
 	public City savecity(@RequestBody City city)
 	{
 		return cityservice.savecity(city);
 		
-	}
+	}*/
 
 }

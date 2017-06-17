@@ -14,6 +14,7 @@ public interface WeatherService {
 	
 
 	public Weather getdailywather();
+	public Weather saveWeather(Weather weather);
 	
 
 	public Weather addWeatherreading ()

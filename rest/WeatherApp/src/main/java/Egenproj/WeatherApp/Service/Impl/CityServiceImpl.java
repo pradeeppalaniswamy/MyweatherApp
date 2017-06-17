@@ -29,4 +29,28 @@ public City savecity(City city) {
 	// TODO Auto-generated method stub
 	return cityrepository.savecity(city);
 }
+@Override
+public City ifCityExists(String cityname) {
+
+		List<City> allcity=cityrepository.findallCity();
+		for(City c1 : allcity)
+		{
+		if(	c1.getName().equalsIgnoreCase(cityname))
+		{
+		return c1;	
+		}
+		/*can use j8*/
+		}
+		System.out.println("no matching city");
+		return null;
+	}
+@Transactional
+@Override
+public void update(City city) {
+	// TODO Auto-generated method stub
+	cityrepository.update(city);
+	
+}
+	
+
 }
