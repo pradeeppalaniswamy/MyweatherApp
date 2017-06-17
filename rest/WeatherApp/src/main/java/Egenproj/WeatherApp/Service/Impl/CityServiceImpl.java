@@ -1,5 +1,7 @@
 package Egenproj.WeatherApp.Service.Impl;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -49,6 +51,20 @@ public City ifCityExists(String cityname) {
 public void update(City city) {
 	// TODO Auto-generated method stub
 	cityrepository.update(city);
+	
+}
+@Override
+public List<String> getCityName() {
+	
+	/*can use j8*/
+	List<City> allcity=cityrepository.findallCity();
+	List<String> citynames=new ArrayList<>();
+	for(City city :allcity )
+	{
+		citynames.add(city.getName());
+		
+	}
+	return citynames;
 	
 }
 	

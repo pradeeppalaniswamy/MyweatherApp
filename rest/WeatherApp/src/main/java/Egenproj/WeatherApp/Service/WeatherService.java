@@ -11,7 +11,7 @@ public interface WeatherService {
 
 ;
 	public Weather getHourlyWeather();
-	
+	public void update(Weather weather);
 
 	public Weather getdailywather();
 	public Weather saveWeather(Weather weather);

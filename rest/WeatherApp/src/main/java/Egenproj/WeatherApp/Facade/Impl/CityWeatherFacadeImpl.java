@@ -8,19 +8,24 @@ import org.springframework.stereotype.Service;
 
 import Egenproj.WeatherApp.Entity.City;
 import Egenproj.WeatherApp.Entity.Weather;
+import Egenproj.WeatherApp.Entity.Wind;
 import Egenproj.WeatherApp.Facade.CityWeatherFacade;
 import Egenproj.WeatherApp.Service.CityService;
 import Egenproj.WeatherApp.Service.WeatherService;
+import Egenproj.WeatherApp.Service.WindService;
 @Service
 public class CityWeatherFacadeImpl implements CityWeatherFacade{
 private CityService cityservice;
 private WeatherService weatherservice;
+private WindService windservice;
 
-	public CityWeatherFacadeImpl(CityService cityservice, WeatherService weatherservice) {
-	
-	this.cityservice = cityservice;
-	this.weatherservice = weatherservice;
-}
+
+	public CityWeatherFacadeImpl(CityService cityservice, WeatherService weatherservice, WindService windservice) {
+		super();
+		this.cityservice = cityservice;
+		this.weatherservice = weatherservice;
+		this.windservice = windservice;
+	}
 
 	@Override
 	public String Getval() {
@@ -29,9 +34,23 @@ private WeatherService weatherservice;
 	}
 
 	@Override
-	public Weather getCitysWeather() {
+	public Weather getCitysWeather(String cityname) {
 		// TODO Auto-generated method stub
-		return null;
+		City currcity=cityservice.ifCityExists(cityname);
+		if(currcity!=null){
+			System.out.println("cityfound");
+		List<Weather> citysweatherlist =currcity.getWeatherreadings();
+		Weather latestweather=findlatest(citysweatherlist);
+		return latestweather;
+		}
+		System.out.println("city not found");
+		return new Weather();
+	}
+	
+	public Weather findlatest(List<Weather> weatherlist)
+	{System.out.println(weatherlist.get(0).toString()+" weather to be returned");
+		return weatherlist.get(0);
+		
 	}
 
 	@Override
@@ -64,7 +83,17 @@ private WeatherService weatherservice;
 	public Weather addWeatherReading(Weather weather) {
 		/* can use j8*/
 		City currcity=cityservice.ifCityExists(weather.getCity());
+		Wind wind=weather.getWind();
+		if(wind!=null){
+			System.out.println("wind not null");
+		windservice.saveWind(wind);
+			System.out.println(wind.toString()+"is wind");
+		
+		weather.setWind(wind);
 		weatherservice.saveWeather(weather);
+		}
+		
+		
 		/*if(currcity==null)
 		{
 			City newcity=new City();
@@ -119,6 +148,57 @@ private WeatherService weatherservice;
 		
 		// TODO Auto-generated method stub
 		return weather;
+	}
+
+	@Override
+	public String[] getCitysWeatherAttribute(String cityname, String attribute) {
+		// TODO Auto-generated method stub
+		String[] retattribute=new String[2];
+		retattribute[0]=cityname+"s "+attribute+"  value";
+		Weather citysweather=getCitysWeather( cityname);
+		if(citysweather!=null)
+		{
+		if(attribute.equalsIgnoreCase("wind"))
+		{
+			retattribute[1]=	citysweather.getWind().toString();
+		}
+		else if(attribute.equalsIgnoreCase("description"))
+		{
+			
+		}
+		else if(attribute.equalsIgnoreCase("humidity"))
+		{
+			retattribute[1]=	citysweather.getHumidity();
+		}
+		else if(attribute.equalsIgnoreCase("preassure"))
+		{
+			retattribute[1]=	citysweather.getPreassure();
+		}
+		else if(attribute.equalsIgnoreCase("temperature"))
+		{
+			retattribute[1]=	citysweather.getTemperature();
+		}
+		else if(attribute.equalsIgnoreCase("speed"))
+		{
+			retattribute[1]=	citysweather.getWind().getSpeed();
+		}
+		else if(attribute.equalsIgnoreCase("degree"))
+		{
+			retattribute[1]=	citysweather.getWind().getDegree();
+		}
+		else if(attribute.equalsIgnoreCase("timestamp"))
+		{
+			retattribute[1]=	citysweather.getTimeoftemp();
+		}
+		else 
+		{
+			retattribute[1]="invalid ";
+		}
+		return retattribute;
+		
+		}
+		retattribute[1]="not found";
+		return retattribute;
 	}
 	
 	

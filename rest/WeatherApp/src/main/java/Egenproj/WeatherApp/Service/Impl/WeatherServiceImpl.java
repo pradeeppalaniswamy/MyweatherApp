@@ -52,5 +52,12 @@ public class WeatherServiceImpl implements  WeatherService{
 		// TODO Auto-generated method stub
 		return weatherrepository.saveWeather(weather);
 	}
+@Transactional
+@Override
+public void update(Weather weather) {
+	// TODO Auto-generated method stub
+	weatherrepository.update(weather);
+	
+}
 	
 }

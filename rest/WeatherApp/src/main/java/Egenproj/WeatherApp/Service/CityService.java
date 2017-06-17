@@ -11,4 +11,5 @@ public interface CityService {
 	public City savecity(City city);
 	public City ifCityExists(String cityname);
 	public void update(City city);
+	public List<String> getCityName();
 }

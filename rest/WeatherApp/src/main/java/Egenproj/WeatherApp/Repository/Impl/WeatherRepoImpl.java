@@ -47,6 +47,13 @@ public class WeatherRepoImpl implements WeatherRepository {
 		 em.persist(weather);
 		 return weather;
 	}
+
+	@Override
+	public void update(Weather weather) {
+		// TODO Auto-generated method stub
+		em.merge(weather);
+		
+	}
 	
 
 }

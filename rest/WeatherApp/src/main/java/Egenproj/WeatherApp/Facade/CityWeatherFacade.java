@@ -11,7 +11,7 @@ public interface CityWeatherFacade {
 public String Getval();
 
 
-public Weather getCitysWeather();
+public Weather getCitysWeather(String cityname);
 
 public void getCitysWeatherParameter();
 
@@ -25,6 +25,6 @@ public Weather getHourlyWeather();
 
 public Weather getdailywather();
 
-
+public String[] getCitysWeatherAttribute(String cityname,String attribute);
 //public Weather addWeatherreading ();
 }

@@ -19,5 +19,6 @@ public interface WeatherRepository {
 	public Weather addWeatherreading ()
 ;
 	public Weather saveWeather(Weather weather);
+	public void update(Weather weather);
 	
 }

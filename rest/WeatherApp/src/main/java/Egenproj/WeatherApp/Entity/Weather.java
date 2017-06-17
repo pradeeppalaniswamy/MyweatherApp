@@ -3,26 +3,23 @@ package Egenproj.WeatherApp.Entity;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Weather {
-	@Override
-	public String toString() {
-		return "Weather [id=" + id + ", humidity=" + humidity + ", preassure=" + preassure + ", temperature="
-				+ temperature + ", Wind=" + Wind + ", city=" + city + ", speed=" + speed + ", description="
-				+ description + ", timeoftemp=" + timeoftemp + "]";
-	}
+	
+	
 	@Id
 	private String id;
 	private String humidity;
 	private String preassure;
 	private String temperature;
-	private String Wind;
-	
 	private String city;
-	private String speed;
+	@OneToOne
+private Wind wind;
 	private String description;
 	private String timeoftemp;
 	public String getId() {
@@ -64,30 +61,29 @@ public class Weather {
 	public void setTemperature(String temperature) {
 		this.temperature = temperature;
 	}
-	public String getWind() {
-		return Wind;
-	}
-	public void setWind(String wind) {
-		Wind = wind;
-	}/*
-	public City getCity() {
-		return city;
-	}
-	public void setCity(City city) {
-		this.city = city;
-	}*/
-	public String getSpeed() {
-		return speed;
-	}
-	public void setSpeed(String speed) {
-		this.speed = speed;
-	}
+	
 
 	public String getTimeoftemp() {
 		return timeoftemp;
 	}
 	public void setTimeoftemp(String timeoftemp) {
 		this.timeoftemp = timeoftemp;
+	}
+	@Override
+	public String toString() {
+		return "Weather [id=" + id + ", humidity=" + humidity + ", preassure=" + preassure + ", temperature="
+				+ temperature + ", city=" + city + ", wind=" + wind + ", description=" + description + ", timeoftemp="
+				+ timeoftemp + "]";
+	}
+
+	
+	
+	public Wind getWind() {
+		return wind;
+	}
+
+	public void setWind(Wind wind) {
+		this.wind = wind;
 	}
 	
 }

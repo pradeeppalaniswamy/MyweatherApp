@@ -24,13 +24,18 @@ public class WeatherController {
 		this.weatherservice = weatherservice;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET,value="{city}")
 	public Weather getCitysWeather(@PathVariable("city") String Cityname)
 	{
-		return weatherservice.getCitysWeather(Cityname);
+		return cityweatherfacade.getCitysWeather(Cityname);
 		
 	}
-	
+	@RequestMapping(method = RequestMethod.GET,value="{city}/{attribute}")
+	public String[] getCitysWeatherAttribute(@PathVariable("city") String Cityname,@PathVariable("attribute") String attribute)
+	{
+		return cityweatherfacade.getCitysWeatherAttribute(Cityname,attribute);
+		
+	}
 @RequestMapping(method = RequestMethod.POST)
 	public Weather getCitysWeatherParameter(@RequestBody Weather weather)
 	{

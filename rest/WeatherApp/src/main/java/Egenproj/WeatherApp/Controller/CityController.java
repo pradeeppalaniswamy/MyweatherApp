@@ -36,6 +36,12 @@ public class CityController {
 		return cityweatherfacade.findallCity();
 		
 	}
+	@RequestMapping(method = RequestMethod.GET,value="names")
+	public List<String> getCityName()
+	{
+		return cityservice.getCityName();
+		
+	}
 	/*
 	@RequestMapping(method = RequestMethod.POST)
 	public City savecity(@RequestBody City city)
