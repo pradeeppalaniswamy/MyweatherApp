@@ -1,8 +1,18 @@
 package Egenproj.WeatherApp.Facade.Impl;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -48,8 +58,15 @@ private WindService windservice;
 	}
 	
 	public Weather findlatest(List<Weather> weatherlist)
-	{System.out.println(weatherlist.get(0).toString()+" weather to be returned");
-		return weatherlist.get(0);
+	{
+		List<Weather> w1=sort(weatherlist);
+	for(int i=0;i<w1.size();i++)
+	{
+		
+		System.out.println("index  "+i+"   :"+w1.get(i).toString());
+	}
+		
+		return sort(weatherlist).get(weatherlist.size()-1) ;
 		
 	}
 
@@ -65,11 +82,11 @@ private WindService windservice;
 		return cityservice.findallCity();
 	}
 
-	@Override
+/*	@Override
 	public Weather getHourlyWeather() {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 	@Override
 	public Weather getdailywather() {
@@ -77,7 +94,6 @@ private WindService windservice;
 		return null;
 	}
 
-	
 
 	@Override
 	public Weather addWeatherReading(Weather weather) {
@@ -122,24 +138,6 @@ private WindService windservice;
 		System.out.println(currcity.toString());
 			List<Weather> weatherreading=currcity.getWeatherreadings();
 			
-			/*if(weatherreading!=null)
-				{
-				//System.out.println(weatherreading.size()+"is the size ");
-				System.out.println("not empty");
-				
-				for(Weather e :weatherreading)
-				{
-					System.out.println(e.toString());
-					
-				}
-				
-				}
-			else
-			{
-				System.out.println("empty");
-				
-			}*/
-			/*System.out.println(weatherreading.get(0).getCity()+"   is city");*/
 			weatherreading.add(weather);
 	currcity.setWeatherreadings(weatherreading);
 	//System.out.println(currcity.getWeatherreadings().get(0).getCity()+"   is city");*/
@@ -200,9 +198,163 @@ private WindService windservice;
 		retattribute[1]="not found";
 		return retattribute;
 	}
-	
-	
-	
-	
 
+	@Override
+	public Weather getHourlyWeather(String cityname, String dayorhour) {
+		// TODO Auto-generated method stub
+		if(!(dayorhour.equalsIgnoreCase("day")||dayorhour.equalsIgnoreCase("hour")))return null;
+		
+		City currcity=cityservice.ifCityExists(cityname);
+		if(currcity!=null)
+		{
+			
+			List<Weather> citysweather=currcity.getWeatherreadings();
+			return getAverageWeather( partition(citysweather,dayorhour));
+		}
+		
+		
+		return null;
+	}
+	
+	public List<Weather> partition(List<Weather> weatherlist,String dayorhour)
+	{   DateFormat format1 = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss.SSS", Locale.ENGLISH);
+		Date datetocompare=getDatetocompare(dayorhour);
+		List<Weather> collect = weatherlist.stream().filter(w->{
+			try {
+				return format1.parse(w.getTimeoftemp().replaceAll("[a-z A-Z]", "")).compareTo(datetocompare)>0;
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		}).collect(Collectors.toList());
+		
+		return collect;
+		
+		
+	}
+	
+	public Date getDatetocompare(String dayorhour)
+	{
+		long ONE_MINUTE_IN_MILLIS=60000;
+		if(dayorhour.equalsIgnoreCase("day")){
+			Date dateWithoutTime=null;
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+					 dateWithoutTime = sdf.parse(sdf.format(new Date()));
+					
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return dateWithoutTime;	
+			
+		}
+		else{
+		
+			int num_of_minitutes_in_hour=60;
+			Calendar date = Calendar.getInstance();
+			long t= date.getTimeInMillis();
+			Date date60minback=new Date(t - (num_of_minitutes_in_hour * ONE_MINUTE_IN_MILLIS));
+			return date60minback;
+		}	
+		
+	}
+	
+	public Weather getAverageWeather(List<Weather> weatherlist)
+	{
+		Weather avgweather=new Weather();
+		if(!weatherlist.isEmpty()){
+		avgweather.setCity(weatherlist.get(0).getCity());
+		Wind  avgwind=new Wind();
+		avgwind.setSpeed(weatherlist.stream().mapToDouble(w->Double.valueOf(w.getWind().getSpeed())).average().toString());
+		avgwind.setDegree(weatherlist.stream().mapToDouble(w->Double.valueOf(w.getWind().getDegree())).average().toString());
+		avgweather.setWind(avgwind);
+		avgweather.setHumidity(weatherlist.stream().mapToDouble(w->Double.valueOf(w.getHumidity())).average().toString());
+		avgweather.setPreassure(weatherlist.stream().mapToDouble(w->Double.valueOf(w.getPreassure())).average().toString());
+		avgweather.setTemperature(weatherlist.stream().mapToDouble(w->Double.valueOf(w.getTemperature())).average().toString());
+		}
+		return avgweather;
+	}
+	
+	public List<Weather> sort (List<Weather> weatherlist)
+	{
+		
+	        DateFormat format1 = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss.SSS", Locale.ENGLISH);
+	/*	Collections.sort(weatherlist,(a,b)->{
+			try {
+				return format1.parse(a.getTimeoftemp().replaceAll("[a-z A-Z]", "")).compareTo(format1.parse(b.getTimeoftemp().replaceAll("[a-z A-Z]", "")));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return 0;
+		});*/
+		List<Weather> collect = weatherlist.stream().sorted(
+				(w1,w2)->{
+					try {
+						return format1.parse(w1.getTimeoftemp().replaceAll("[a-z A-Z]", "")).
+						compareTo(format1.parse(w2.getTimeoftemp().replaceAll("[a-z A-Z]", "")));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return 0;
+				}
+				).collect(Collectors.toList());
+						
+		
+		return collect;
+	}
+	/***************************************old replaced by java8*************************************************************//*
+	
+	public List<Weather> partition(List<Weather> weatherlist,String dayorhour)
+	{ long ONE_MINUTE_IN_MILLIS=60000;//millisecs
+
+	Calendar date = Calendar.getInstance();
+	long t= date.getTimeInMillis();
+	Date s60minback=new Date(t - (60 * ONE_MINUTE_IN_MILLIS));
+	DateFormat format1 = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss.SSS", Locale.ENGLISH);
+		List<Weather> topartition=sort(weatherlist,dayorhour);
+		List<Weather> partioned=new ArrayList();
+		if(dayorhour.equalsIgnoreCase("hour"))
+		{
+			for(Weather w : topartition)
+			{
+				try {
+					if( format1.parse(w.getTimeoftemp().replaceAll("[a-z A-Z]", "")).compareTo(s60minback)>0)
+					{
+						partioned.add(w);
+						
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			}
+			
+		}
+		return partioned;
+	}
+	
+	public List<Weather> sort (List<Weather> weatherlist,String dayorhour)
+	{
+		// s4=s4.replaceAll("[a-z A-Z]", "");
+	        DateFormat format1 = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss.SSS", Locale.ENGLISH);
+		Collections.sort(weatherlist,(a,b)->{
+			try {
+				return format1.parse(a.getTimeoftemp().replaceAll("[a-z A-Z]", "")).compareTo(format1.parse(b.getTimeoftemp().replaceAll("[a-z A-Z]", "")));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return 0;
+		});
+		
+		
+		return weatherlist;
+	}*/
+	
 }

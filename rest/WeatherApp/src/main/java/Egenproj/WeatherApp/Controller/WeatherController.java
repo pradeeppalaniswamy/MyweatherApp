@@ -43,12 +43,12 @@ public class WeatherController {
 		return cityweatherfacade.addWeatherReading(weather);
 	}
 
-/*
-	@RequestMapping(method = RequestMethod.GET)
-	public Weather getHourlyWeather()
+
+	@RequestMapping(method = RequestMethod.GET,value="getavg/{city}/{dayorhr}")
+	public Weather getHourlyWeather(@PathVariable("city") String cityname,@PathVariable("dayorhr") String dayorhour )
 	{
-		return cityweatherfacade.getHourlyWeather();
-	}
+		return cityweatherfacade.getHourlyWeather(cityname,dayorhour);
+	}/*
 	@RequestMapping(method = RequestMethod.GET)
 	public Weather getdailywather()
 	{

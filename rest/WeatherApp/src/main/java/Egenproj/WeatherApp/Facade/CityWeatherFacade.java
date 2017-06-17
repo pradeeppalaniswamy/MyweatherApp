@@ -20,7 +20,7 @@ public Weather addWeatherReading(Weather weather);
 
 public List<City> findallCity();
 ;
-public Weather getHourlyWeather();
+public Weather getHourlyWeather(String cityname,String dayorhour);
 
 
 public Weather getdailywather();
