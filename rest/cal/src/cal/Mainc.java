@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
+//import egenproj.WeatherApp.Facade.Constants.Constant;
+
 public class Mainc {
 
 	public static void main(String[] args) {
@@ -60,7 +62,7 @@ public class Mainc {
 	       
 	       d.forEach(System.out::println);
 	        */
-	long ONE_MINUTE_IN_MILLIS=60000;//millisecs
+	/*long ONE_MINUTE_IN_MILLIS=60000;//millisecs
 
 		Calendar date = Calendar.getInstance();
 		long t= date.getTimeInMillis();
@@ -76,8 +78,9 @@ public class Mainc {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}*/
+		Double.parseDouble("64564ghh");
+		//Constant.TIME_STAMP_DATE_FORMAT.parse(weather.getTimeoftemp().replaceAll(Constant.ALPHABET_REGEX, ""));
 	    }
 
 	
