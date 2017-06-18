@@ -3,6 +3,7 @@ package Egenproj.WeatherApp.Service;
 import java.util.List;
 
 import Egenproj.WeatherApp.Entity.City;
+import Egenproj.WeatherApp.Entity.Weather;
 
 
 
@@ -12,4 +13,5 @@ public interface CityService {
 	public City ifCityExists(String cityname);
 	public void update(City city);
 	public List<String> getCityName();
+	
 }

@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import Egenproj.WeatherApp.Facade.CityWeatherFacade;
 import Egenproj.WeatherApp.Service.WeatherService;
+import Egenproj.WeatherApp.Controller.Constants.Mapper;
 import Egenproj.WeatherApp.Entity.Weather;
 @RestController
-@RequestMapping(value="/weather")
+@RequestMapping(value=Mapper.WEATHER)
 public class WeatherController {
 
 	
@@ -48,19 +49,7 @@ public class WeatherController {
 	public Weather getHourlyWeather(@PathVariable("city") String cityname,@PathVariable("dayorhr") String dayorhour )
 	{
 		return cityweatherfacade.getHourlyWeather(cityname,dayorhour);
-	}/*
-	@RequestMapping(method = RequestMethod.GET)
-	public Weather getdailywather()
-	{
-		return cityweatherfacade.getdailywather();
 	}
-
-	@RequestMapping(method = RequestMethod.POST)
-	public Weather addWeatherreading ()
-	{
-		return cityweatherfacade.addWeatherreading();
-		
-	}
-	*/
+	
 	
 }

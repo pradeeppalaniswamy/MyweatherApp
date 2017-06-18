@@ -8,23 +8,16 @@ import Egenproj.WeatherApp.Entity.Weather;
 
 
 public interface CityWeatherFacade {
-public String Getval();
 
-
-public Weather getCitysWeather(String cityname);
-
-public void getCitysWeatherParameter();
 
 public Weather addWeatherReading(Weather weather);
 
+Weather getHourlyWeather(String cityname, String dayorhour);
 
-public List<City> findallCity();
-;
-public Weather getHourlyWeather(String cityname,String dayorhour);
+String[] getCitysWeatherAttribute(String cityname, String attribute);
+
+Weather getCitysWeather(String cityname);
 
 
-public Weather getdailywather();
-
-public String[] getCitysWeatherAttribute(String cityname,String attribute);
 //public Weather addWeatherreading ();
 }
