@@ -11,6 +11,9 @@ import egenproj.WeatherApp.Controller.Constants.Mapper;
 import egenproj.WeatherApp.Entity.City;
 import egenproj.WeatherApp.Facade.CityWeatherFacade;
 import egenproj.WeatherApp.Service.CityService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 @RestController
 @RequestMapping(value=Mapper.CITY)
 public class CityController {
@@ -36,12 +39,22 @@ public class CityController {
 
 		this.cityservice = cityservice;
 	}
+	@ApiOperation(value = "Find All the cities", notes = "Returns List of cities along with their weather reading")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 500, message = "Internal Server Error"), })
 	@RequestMapping(method = RequestMethod.GET)
 	public List<City> findallCity()
 	{
 		return cityservice.findallCity();
 		
 	}
+	
+	
+	@ApiOperation(value = "Find All the cities names", notes = "Returns List of cities names")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 500, message = "Internal Server Error"), })
 	@RequestMapping(method = RequestMethod.GET,value="names")
 	public List<String> getCityName()
 	{
