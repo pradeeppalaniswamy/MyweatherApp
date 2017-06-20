@@ -1,5 +1,6 @@
 package egenproj.WeatherApp.Controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping(value=Mapper.WEATHER)
+//@CrossOrigin(origins = "http://mocker.egen.io/" )
 public class WeatherController {
 
 	

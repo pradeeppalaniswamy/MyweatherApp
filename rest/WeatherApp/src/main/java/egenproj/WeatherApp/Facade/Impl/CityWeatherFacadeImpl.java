@@ -144,7 +144,7 @@ public String[] getCitysWeatherAttribute(String cityname, String attribute) {
 	}
 	else if(attribute.equalsIgnoreCase(Constant.PREASSURE))
 	{
-		retattribute[1]=	citysweather.getPreassure();
+		retattribute[1]=	citysweather.getPressure();
 	}
 	else if(attribute.equalsIgnoreCase(Constant.TEMPTATURE))
 	{
@@ -198,7 +198,7 @@ public boolean isValid(Weather weather)
 
 	try{
 		Double.parseDouble(weather.getHumidity());
-		Double.parseDouble(weather.getPreassure());
+		Double.parseDouble(weather.getPressure());
 		Double.parseDouble(weather.getTemperature());
 		Double.parseDouble(weather.getWind().getDegree());
 		Double.parseDouble(weather.getWind().getSpeed());
@@ -209,6 +209,7 @@ public boolean isValid(Weather weather)
 	catch(Exception e)
 	{
 		System.out.println("exception caught "+e.getMessage());
+		e.printStackTrace();
 		return false;
 		
 	}
@@ -279,7 +280,7 @@ public Weather getAverageWeather(List<Weather> weatherlist)
 	avgwind.setDegree(weatherlist.stream().mapToDouble(w->Double.valueOf(w.getWind().getDegree())).average().toString());
 	avgweather.setWind(avgwind);
 	avgweather.setHumidity(weatherlist.stream().mapToDouble(w->Double.valueOf(w.getHumidity())).average().toString());
-	avgweather.setPreassure(weatherlist.stream().mapToDouble(w->Double.valueOf(w.getPreassure())).average().toString());
+	avgweather.setPressure(weatherlist.stream().mapToDouble(w->Double.valueOf(w.getPressure())).average().toString());
 	avgweather.setTemperature(weatherlist.stream().mapToDouble(w->Double.valueOf(w.getTemperature())).average().toString());
 	}
 	return avgweather;

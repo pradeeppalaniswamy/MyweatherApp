@@ -15,7 +15,7 @@ public class Weather {
 	@Id
 	private String id;
 	private String humidity;
-	private String preassure;
+	private String pressure;
 	private String temperature;
 	private String city;
 	@OneToOne
@@ -49,11 +49,11 @@ private Wind wind;
 	public void setHumidity(String humidity) {
 		this.humidity = humidity;
 	}
-	public String getPreassure() {
-		return preassure;
+	public String getPressure() {
+		return pressure;
 	}
-	public void setPreassure(String preassure) {
-		this.preassure = preassure;
+	public void setPressure(String preassure) {
+		this.pressure = preassure;
 	}
 	public String getTemperature() {
 		return temperature;
@@ -71,7 +71,7 @@ private Wind wind;
 	}
 	@Override
 	public String toString() {
-		return "Weather [id=" + id + ", humidity=" + humidity + ", preassure=" + preassure + ", temperature="
+		return "Weather [id=" + id + ", humidity=" + humidity + ", preassure=" + pressure + ", temperature="
 				+ temperature + ", city=" + city + ", wind=" + wind + ", description=" + description + ", timeoftemp="
 				+ timestamp + "]";
 	}

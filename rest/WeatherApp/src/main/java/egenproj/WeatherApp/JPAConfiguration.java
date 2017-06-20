@@ -41,7 +41,10 @@ public class JPAConfiguration {
 		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
 	/*	ds.setUrl(env.getProperty("db.url"));
 		ds.setUsername(env.getProperty("db.user", "root"));
-		ds.setPassword(env.getProperty("db.password", "Asdf@1234"));*/
+		ds.setPassword(env.getProperty("db.password", "Asdf@1234"));/*old*/
+	
+	
+	
 		ds.setUrl(env.getProperty("db.url"));
 		//ds.setUrl("jdbc:mysql://localhost:3306/weatherapp");
 		ds.setUsername(env.getProperty("db.user","root"));
@@ -59,7 +62,9 @@ public class JPAConfiguration {
 		props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		/*props.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl"));
 		props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show.sql"));
-		props.setProperty("hibernate.format_sql", env.getProperty("hibernate.format.sql"));*/
+		props.setProperty("hibernate.format_sql", env.getProperty("hibernate.format.sql"));/*old*/
+	
+	
 		props.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl"));
 		props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show.sql"));
 		props.setProperty("hibernate.format_sql", env.getProperty("hibernate.format.sql"));
@@ -67,4 +72,15 @@ public class JPAConfiguration {
 		
 		return props;
 	}
+	
+	/*
+	@Bean
+	public LocalContainerEntityManagerFactoryBean emf() {
+		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+		emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+		emf.setDataSource(getDatasource());
+		emf.setPackagesToScan("egenproj.WeatherApp.Entity");
+		emf.setJpaProperties(jpaProperties());
+		return emf;
+	}*/
 }
