@@ -14,7 +14,7 @@ import egenproj.WeatherApp.config.SwaggerConfig;
 @Import({ApplicationConfig.class,SwaggerConfig.class})
 public class AppStarter {
 public static void main(String[] args) {
-	System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "prod");
+	//System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "prod");
 	SpringApplication.run(AppStarter.class, args);
 	
 }
